@@ -1,0 +1,18 @@
+<h2>All Products</h2>
+
+<div>
+  <% @products.each do |product| %>
+    <p>Name: <%= product.name %></p>
+    <p>Price: <%= product.price %></p>
+    <%= form_with model: @cart_item, url: add_item_path do |f| %>
+        <%= f.hidden_field :product_id, :value => product.id %>
+        <%= f.number_field :quantity, in: 1..100, step: 1 %>
+        <%= f.submit "add #{product.name} to cart"%>
+    <% end %>
+  <% end %>
+  
+</div>
+
+<%= link_to "/carts/#{session[:cart_id]}", class: 'btn btn-default' do %>
+  <button class="btn btn-secondary btn-lg" >To Cart</button>
+<% end %>

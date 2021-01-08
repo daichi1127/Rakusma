@@ -1,0 +1,22 @@
+<div class="main users-new">
+  <div class="container">
+    <div class="form-heading">アカウント編集</div>
+    <div class="form users-form">
+      <div class="form-body">
+        <% @user.errors.full_messages.each do |message| %>
+          <div class="form-error">
+            <%= message %>
+          </div>
+        <% end %>
+        
+        <%= form_with model: @user, url: update_user_path do |f| %>
+          <p>ユーザー名</p>
+          <%= f.text_field :name, :value => @user.name, size: 30 %>
+          <p>メールアドレス</p>
+          <%= f.email_field :email, :value => @user.email %>
+          <%= f.submit "submit" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

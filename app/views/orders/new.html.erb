@@ -1,0 +1,15 @@
+<h2>Order Confirmation</h2>
+<% @cart.cart_items.each do |item| %>
+    商品名前: <%= item.product.name %>
+    <br>
+    価格: <%= item.product.price %>円
+    <br>
+    数量: <%= item.quantity %>個
+    <br>
+    小計: <%= @sub_totals_hash[item.product_id] %>
+    <br>
+    <br>
+<% end %>
+
+合計: <%= @total %>
+<%= button_to '注文をする', create_order_path, method: :post, class: 'fbtn' %>
