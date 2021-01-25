@@ -47,13 +47,10 @@ class UsersController < ApplicationController
       if session[:cart_id] and @user.cart_id.nil?
         Cart.find_by(id: session[:cart_id]).update(user_id: @user.id)
         @user.update(cart_id: session[:cart_id])
-        puts "cart + user"
         redirect_to("/carts/#{@user.cart_id}")
       elsif session[:cart_id]
-        puts "cart"
         redirect_to("/carts/#{@user.cart_id}")
       else
-        puts "user"
         redirect_to("/products")
       end
       session[:user_id] = @user.id
