@@ -16,7 +16,12 @@ class UsersController < ApplicationController
       flash[:notice] = "ユーザー登録が完了しました"
       redirect_to("/products")
     else
-      render("users/new")
+      @user.errors.full_messages.each do |message|
+        puts message
+        puts "=================="
+      end
+      # render("users/new")
+      render action: :new
     end
   end
 

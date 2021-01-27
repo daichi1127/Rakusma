@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'logout' => 'users#logout'
   
   post '/users/:id' => 'users#update', :as => 'update_user'
+  get '/users' => 'users#new', :as => 'users'
   resources :users, only: [:show, :create, :edit, :update]
 
   post '/add_item' => 'carts#add_item'

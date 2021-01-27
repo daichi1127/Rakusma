@@ -5,8 +5,8 @@
 #   gem 'sqlite3'
 #
 default: &default
-  # adapter: sqlite3
-  adapter: mysql2
+  adapter: sqlite3
+  # adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
@@ -14,12 +14,12 @@ default: &default
 
 development:
   <<: *default
-  # database: db/development.sqlite3
-  database: rakusma_table
-  username: root
-  password: 12345678
-  host: rakusma-web.cxmyv7dtqc6o.ap-northeast-1.rds.amazonaws.com
-  encoding: utf8
+  database: db/development.sqlite3
+  # database: rakusma_table
+  # username: root
+  # password: 12345678
+  # host: rakusma-web.cxmyv7dtqc6o.ap-northeast-1.rds.amazonaws.com
+  # encoding: utf8
   # socket: /var/lib/mysql/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -27,8 +27,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  # database: db/test.sqlite3
+  database: db/test.sqlite3
 
 production:
   <<: *default
-  # database: db/production.sqlite3
+  database: db/production.sqlite3
