@@ -20,8 +20,7 @@
         </li>
         <% if @current_user %>
           <li>
-            ユーザー:
-            <%= link_to(@current_user.name, "/users/#{@current_user.id}") %>
+            <%= link_to("ユーザー: #{@current_user.name}", "/users/#{@current_user.id}") %>
           </li>
           <li>
             <%= link_to("ログアウト", "/logout", { method: :post }) %>
