@@ -3,34 +3,23 @@ class ProductsController < ApplicationController
 include ActionController::Streaming
 include Zipline
 
+  before_action :set_product_images, only: %i[categorized_index]
+  before_action :set_categorized_products, only: %i[categorized_index]
+  before_action :set_category, only: %i[categorized_index]
+  
+
   # 商品一覧画面
   def index
-    download
+    @categories = Category.all
+    @cart_item = CartItem.new
+  end
+  
+  def categorized_index
     @products = Product.all
     @cart_item = CartItem.new
   end
   
-  def download
-    # region = 'ap-northeast-1'
-    # bucket = "rakusma-product-info"
-    # key = params[:]
-
-    # myBacket = 'rakusma-product-info'
-    # bucket = Aws::S3::Client.new(
-    #       :region => 'ap-northeast-1',
-    #         :access_key_id => 'AKIA5A4FPCPRVUXNNREK',
-    #         :secret_access_key => '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'
-    #       )
-    # lists = []
-    # bucket.list_objects(:bucket => myBacket).contents.each do |b|
-    #   lists.push(b)
-    # end
-    # lists.lazy.map do |list|
-    #   s3_object = bucket.get_object(bucket: myBacket, key: list.key)
-    #   puts s3_object
-    #   # [s3_object.body, list.key+".png"]
-    # end
-    # puts lists
+  def set_product_images
     @image_url_array = Hash.new
     s3 = Aws::S3::Resource.new(
         region: 'ap-northeast-1',
@@ -50,4 +39,18 @@ include Zipline
       @image_url_array.store(product.id, presigned_url)
     end
   end
+  
+  private
+    def set_categorized_products
+      # @categories_products = ProductCategoryRelation.joins(:product).select("products.name").where(category_id: set_category_id)
+      @categories_products = Product.joins(:product_category_relations).where(product_category_relations: { category_id: params[:id] })
+    end
+    
+    def set_category
+      @category = Category.find(set_category_id)
+    end
+    
+    def set_category_id
+      params[:id]
+    end
 end

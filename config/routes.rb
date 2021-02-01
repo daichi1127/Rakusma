@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :products
+  get '/category/:id' => 'products#categorized_index'
 
   get 'carts' => 'carts#empty'
   resources :carts, only: [:show]
