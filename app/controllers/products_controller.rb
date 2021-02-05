@@ -42,7 +42,6 @@ include Zipline
   
   private
     def set_categorized_products
-      # @categories_products = ProductCategoryRelation.joins(:product).select("products.name").where(category_id: set_category_id)
       @categories_products = Product.joins(:product_category_relations).where(product_category_relations: { category_id: params[:id] })
     end
     
